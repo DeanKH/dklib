@@ -1,0 +1,24 @@
+services:
+  dklib:
+    image: deankh/perception:latest
+    container_name: dklib
+    privileged: true
+    tty: true
+    stdin_open: true
+    environment:
+      - DISPLAY=${DISPLAY}
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      - CYCLONEDDS_URI=file:///cyclonedds.xml
+    network_mode: host
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./cyclonedds.xml:/cyclonedds.xml
+      - ./:/home/developer/workspace/src
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
+    user: developer
