@@ -1,6 +1,12 @@
 services:
   dklib:
     image: deankh/perception:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USER_UID: ${UID:-1000}
+        USER_GID: ${GID:-1000}
     container_name: dklib
     privileged: true
     tty: true
@@ -13,7 +19,8 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ./cyclonedds.xml:/cyclonedds.xml
-      - ./:/home/developer/workspace/src
+      - ./src:/home/developer/workspace/src
+      - ./bash_history:/home/developer/.bash_history
     deploy:
       resources:
         reservations:
