@@ -21,6 +21,7 @@ services:
       - ./cyclonedds.xml:/cyclonedds.xml
       - ./src:/home/developer/workspace/src
       - ./bash_history:/home/developer/.bash_history
+      - ./tmux.conf:/home/developer/.tmux.conf
     deploy:
       resources:
         reservations:
