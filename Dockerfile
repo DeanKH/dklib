@@ -79,7 +79,17 @@ RUN \
   --mount=type=cache,target=/var/lib/apt \
   apt update \
   && apt install -y --no-install-recommends \
-  tmux
+  tmux \
+  software-properties-common
+
+
+RUN \
+  --mount=type=cache,target=/var/cache/apt \
+  --mount=type=cache,target=/var/lib/apt \
+  add-apt-repository -y ppa:borglab/gtsam-develop && \
+  apt update && \
+  apt install -y libgtsam-dev libgtsam-unstable-dev
+
 
 ARG USERNAME=developer
 ARG USER_UID=1000
